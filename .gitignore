@@ -1,0 +1,28 @@
+# WorkBuddy 工作目录配置（含团队/任务/内存等本地状态，不纳入版本控制）
+.workbuddy/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 临时文件
+*.tmp
+*.log
+*.bak
