@@ -2380,3 +2380,133 @@ public class ZkDistributedLock {
 - [x] Spark 代码 API 准确（reduceByKey、checkpoint、salting、SparkListener）
 - [x] SQL 语法符合 Hive/Spark SQL（窗口函数、MAPJOIN hint、CTE）
 - [x] 复杂度分析准确（小顶堆 O(nlogK)、HLL O(n)+O(m)、外排 O(nlogn)+O(nlogK)）
+
+---
+
+## CODE-016 [L1] [Spark Core/基础/WordCount]
+**题干**：使用 Spark Core（Scala 或 Java）编写经典的 WordCount 程序：读取 HDFS 上的文本文件，统计每个单词出现次数，结果写回 HDFS。
+
+### 参考实现（Scala）
+
+```scala
+import org.apache.spark.sql.SparkSession
+
+object WordCount {
+  def main(args: Array[String]): Unit = {
+    // 1. 创建 SparkSession（Spark 2.0+ 统一入口）
+    val spark = SparkSession.builder()
+      .appName("WordCount")
+      .master("local[*]")  // 生产环境改为 yarn / spark://host:7077
+      .getOrCreate()
+
+    // 2. 读取 HDFS 文本文件，每行是一个字符串
+    //    textFile 返回 RDD[String]
+    val inputPath = "hdfs://namenode:8020/input/words.txt"
+    val lines = spark.sparkContext.textFile(inputPath)
+
+    // 3. 分词：每行按空格切分，flatMap 展平成单词列表
+    //    "hello world hello" → ["hello", "world", "hello"]
+    val words = lines.flatMap(_.split(" "))
+
+    // 4. 映射为 (word, 1) 键值对
+    //    "hello" → ("hello", 1)
+    val pairs = words.map(word => (word, 1))
+
+    // 5. 按单词聚合，reduceByKey 在 Shuffle 前先局部聚合（Combiner），减少网络传输
+    //    对比 groupByKey：后者无 Combiner，全量 Shuffle，性能差
+    val counts = pairs.reduceByKey(_ + _)
+
+    // 6. 结果写回 HDFS
+    val outputPath = "hdfs://namenode:8020/output/wordcount"
+    counts.saveAsTextFile(outputPath)
+
+    // 7. 关闭 SparkSession
+    spark.stop()
+  }
+}
+```
+
+### 复杂度分析
+- 时间复杂度：O(n)，n 为总单词数（分词 O(n) + 聚合 O(n)，reduceByKey 的 Combiner 将局部聚合提前）
+- 空间复杂度：O(k)，k 为不同单词数（聚合结果大小）
+
+### 测试用例
+```scala
+// 输入文件 words.txt:
+// hello world hello
+// spark hadoop spark
+//
+// 输出:
+// (spark,2)
+// (hello,2)
+// (world,1)
+// (hadoop,1)
+```
+
+### 追问简答
+- **为什么用 reduceByKey 而不是 groupByKey？** → reduceByKey 有 Combiner（Map 端预聚合），减少 Shuffle 数据量；groupByKey 把所有 value 原样 Shuffle，数据量大时易 OOM
+- **如何提升性能？** → 调 `spark.sql.shuffle.partitions`（默认 200）；用 `repartition` 调整并行度；过滤空词 `filter(_.nonEmpty)`
+
+---
+
+## CODE-017 [L1] [Hive SQL/基础/建表]
+**题干**：编写 Hive SQL 建表语句：创建一张用户行为日志表 `dwd_user_log_di`，字段含 `user_id BIGINT`、`event_type STRING`、`event_time TIMESTAMP`，按日期分区，使用 ORC 存储 + Snappy 压缩。
+
+### 参考实现
+
+```sql
+-- 建表语句：用户行为日志明细表（DWD层）
+-- 命名规范：dwd_{业务域}_{实体}_{粒度} = dwd_user_log_di（di = daily increment 日增量）
+CREATE TABLE IF NOT EXISTS dwd_user_log_di (
+    user_id     BIGINT       COMMENT '用户ID',
+    event_type  STRING       COMMENT '事件类型（login/view/click/order等）',
+    event_time  TIMESTAMP    COMMENT '事件发生时间'
+)
+COMMENT '用户行为日志明细表-日增量'
+-- 分区字段：按日期分区，分区字段不在列定义中
+PARTITIONED BY (dt STRING COMMENT '日期，格式 yyyy-MM-dd')
+-- 存储格式：ORC（列式存储，适合分析查询，支持谓词下推）
+STORED AS ORC
+-- 压缩：Snappy（压缩比与速度的平衡，比 GZIP 快，比 LZO 压缩比高）
+TBLPROPERTIES (
+    'orc.compress' = 'SNAPPY'
+);
+
+-- 建表后需做的配套操作：
+-- 1. 添加分区（首次使用前）
+ALTER TABLE dwd_user_log_di ADD IF NOT EXISTS PARTITION (dt = '2026-07-03');
+
+-- 2. 数据写入（从 ODS 层清洗后导入）
+INSERT OVERWRITE TABLE dwd_user_log_di PARTITION (dt = '2026-07-03')
+SELECT
+    user_id,
+    event_type,
+    event_time
+FROM ods_user_log_inc
+WHERE dt = '2026-07-03'
+  AND user_id IS NOT NULL  -- 过滤空值
+;
+```
+
+### 复杂度分析
+- 建表：O(1)，仅写入元数据
+- 写入：O(n)，n 为数据行数（ORC 写入有额外排序+编码开销，但 IO 友好）
+
+### 测试用例
+```sql
+-- 验证建表成功
+DESCRIBE FORMATTED dwd_user_log_di;
+-- 应显示：Table Type=MANAGED_TABLE, InputFormat=ORC, orc.compress=SNAPPY
+
+-- 验证分区
+SHOW PARTITIONS dwd_user_log_di;
+-- 应显示：dt=2026-07-03
+
+-- 查询验证
+SELECT COUNT(*) FROM dwd_user_log_di WHERE dt = '2026-07-03';
+```
+
+### 追问简答
+- **为什么用 ORC 而不是 TextFile？** → ORC 列式存储，查询只读需要的列，压缩比高（约 75%），支持谓词下推和索引
+- **为什么用 Snappy 而不是 GZIP？** → Snappy 压缩/解压速度更快（适合频繁读），GZIP 压缩比更高但 CPU 开销大
+- **内部表还是外部表？** → DWD 层通常用内部表（MANAGED），删除时数据和元数据一起清理；ODS 层倾向外部表（EXTERNAL），保护原始数据
