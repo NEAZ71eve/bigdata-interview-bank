@@ -914,5 +914,96 @@
 
 ---
 
+## L1 基础题补全（架构核验后追加）
+
+> 追加时间：2026-07-03
+> 追加原因：Harness 核验发现 L1 仅 3 道（3%，目标 15%），难度严重失衡，追加 12 道 L1 基础题补全
+> 覆盖技术栈：Kafka / Hadoop(HDFS) / Spark / Flink / Zookeeper / 数仓
+
+### MCQ-011 [L1] [Kafka/基础概念/Topic+Partition]
+- **题干**：关于 Kafka 中 Topic 和 Partition 的关系，以下说法正确的是？
+- **选项**：A. 一个 Topic 只能有一个 Partition  B. Partition 是 Topic 的物理划分，一个 Topic 可包含多个 Partition  C. Partition 数量只能在创建 Topic 时指定，后续不可修改  D. 不同 Partition 之间的消息是有序的
+- **正确答案**：B
+- **来源公司**：字节跳动
+- **解析**：Topic 是逻辑概念，Partition 是其物理划分。一个 Topic 可包含多个 Partition（创建后可增加但不能减少）。Partition 内消息有序，跨 Partition 无序。
+- **关联题**：SAQ-001、MCQ-011-V1
+
+### MCQ-012 [L1] [Hadoop/HDFS/块大小]
+- **题干**：HDFS 2.x 的默认 Block 大小是？
+- **选项**：A. 32 MB  B. 64 MB  C. 128 MB  D. 256 MB
+- **正确答案**：C
+- **来源公司**：阿里
+- **解析**：HDFS 1.x 默认 64MB，HDFS 2.x/3.x 默认 128MB（参数 `dfs.blocksize`）。大 Block 减少元数据开销、提升顺序读吞吐，但不利小文件。
+- **关联题**：SAQ-007、MCQ-012-V1
+
+### MCQ-013 [L1] [Spark/RDD/概念]
+- **题干**：Spark 中 RDD 的全称是？
+- **选项**：A. Resilient Distributed Dataset  B. Reliable Data Dictionary  C. Remote Data Driver  D. Replicated Data Disk
+- **正确答案**：A
+- **来源公司**：美团
+- **解析**：RDD = Resilient Distributed Dataset（弹性分布式数据集），是 Spark 最底层抽象，具备不可变、分区、容错（基于血缘 lineage）特性。
+- **关联题**：SAQ-006、MCQ-013-V1
+
+### MCQ-014 [L1] [Flink/基础/流批一体]
+- **题干**：关于 Flink 的"流批一体"，以下说法正确的是？
+- **选项**：A. 批处理是流处理的特例，流处理是批处理的特例  B. Flink 批处理和流处理是两套独立 API  C. Flink 以流处理为本，批处理是有界流  D. Flink 不支持批处理
+- **正确答案**：C
+- **来源公司**：字节跳动
+- **解析**：Flink 以流为本（stream-first），批处理是有界流（bounded stream）。这与 Spark 以批为本、微批模拟流的设计哲学不同。
+- **关联题**：SAQ-020、MCQ-014-V1
+
+### MCQ-015 [L1] [Zookeeper/基础/节点类型]
+- **题干**：以下不属于 Zookeeper 节点（ZNode）类型的是？
+- **选项**：A. 持久节点（Persistent）  B. 临时节点（Ephemeral）  C. 顺序节点（Sequential）  D. 事务节点（Transactional）
+- **正确答案**：D
+- **来源公司**：阿里
+- **解析**：ZK 四种 ZNode 类型：持久节点、持久顺序节点、临时节点、临时顺序节点。不存在"事务节点"。
+- **关联题**：SAQ-022、MCQ-015-V1
+
+### MCQ-016 [L1] [数仓/分层/ODS]
+- **题干**：数据仓库中 ODS 层的主要作用是？
+- **选项**：A. 对数据进行聚合汇总，生成宽表  B. 存放原始数据，保持与业务库一致  C. 存放维度表  D. 面向应用的报表数据
+- **正确答案**：B
+- **来源公司**：美团
+- **解析**：ODS（Operational Data Store）贴源层，存放从业务库同步的原始数据，保持与源端一致，不做加工。DWS 聚合、DIM 维度、ADS 报表。
+- **关联题**：SAQ-019、MCQ-016-V1
+
+### SAQ-026 [L1] [Kafka/基础/概念]
+- **题干**：什么是 Kafka？它的核心组件有哪些？
+- **来源公司**：字节跳动
+- **考查要点**：Kafka 定义（分布式消息队列/流处理平台）、核心组件（Broker/Topic/Partition/Producer/Consumer/ConsumerGroup/Zookeeper）
+- **关联题**：SAQ-001、SAQ-026-V1
+
+### SAQ-027 [L1] [Spark/基础/RDD]
+- **题干**：什么是 RDD？它有哪些核心特性？
+- **来源公司**：美团
+- **考查要点**：RDD 定义（弹性分布式数据集）、五大特性（分区列表/算子计算/依赖关系/分区器/首选位置）
+- **关联题**：SAQ-006、SAQ-027-V1
+
+### SAQ-028 [L1] [Hadoop/HDFS/概念]
+- **题干**：什么是 HDFS？它的核心组件是什么？
+- **来源公司**：阿里
+- **考查要点**：HDFS 定义（Hadoop Distributed File System，分布式文件系统）、三大组件（NameNode 元数据/DataNode 数据块/SecondaryNameNode 定期合并 fsimage+edits）
+- **关联题**：SAQ-007、SAQ-028-V1
+
+### SAQ-029 [L1] [数仓/分层/概念]
+- **题干**：数据仓库为什么要分层？常见的分层有哪些？
+- **来源公司**：美团
+- **考查要点**：分层原因（解耦/复用/清晰血缘/便于管理）、常见分层（ODS 贴源/DWD 明细/DWS 汇总/DIM 维度/ADS 报表）
+- **关联题**：SAQ-019、SAQ-029-V1
+
+### CODE-016 [L1] [Spark Core/基础/WordCount]
+- **题干**：使用 Spark Core（Scala 或 Java）编写经典的 WordCount 程序：读取 HDFS 上的文本文件，统计每个单词出现次数，结果写回 HDFS。
+- **来源公司**：美团
+- **关联题**：CODE-007、CODE-016-V1
+
+### CODE-017 [L1] [Hive SQL/基础/建表]
+- **题干**：编写 Hive SQL 建表语句：创建一张用户行为日志表 `dwd_user_log_di`，字段含 `user_id BIGINT`、`event_type STRING`、`event_time TIMESTAMP`，按日期分区，使用 ORC 存储 + Snappy 压缩。
+- **来源公司**：阿里
+- **关联题**：CODE-012、CODE-017-V1
+
+---
+
 > 扩展完成时间：2026-07-03
+> L1 基础题补全时间：2026-07-03（Harness 核验后追加 12 道）
 > 下一步建议：交由阅卷 Agent 补全简答题标准答案与代码题参考实现；交由组卷 Agent 按难度/标签组卷。
