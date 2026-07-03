@@ -1,0 +1,786 @@
+[
+  {
+    "id": "MCQ-001",
+    "type": "MCQ",
+    "level": "L2",
+    "tags": "Kafka/零拷贝/sendfile",
+    "stem": "Kafka 实现高吞吐所采用的零拷贝技术，主要依赖以下哪个系统调用？"
+  },
+  {
+    "id": "MCQ-001-V1",
+    "type": "MCQ",
+    "level": "L3",
+    "tags": "Kafka/零拷贝/mmap",
+    "stem": "Kafka Producer 端为了提升写入吞吐，将磁盘文件映射到用户空间内存，使用的是以下哪个系统调用？"
+  },
+  {
+    "id": "MCQ-001-V2",
+    "type": "MCQ",
+    "level": "L2",
+    "tags": "Kafka/零拷贝/辨析",
+    "stem": "以下关于 Kafka 零拷贝的说法，错误的是？"
+  },
+  {
+    "id": "MCQ-002",
+    "type": "MCQ",
+    "level": "L2",
+    "tags": "Spark/宽窄依赖/算子",
+    "stem": "以下 Spark 算子中，哪个属于窄依赖？"
+  },
+  {
+    "id": "MCQ-002-V1",
+    "type": "MCQ",
+    "level": "L2",
+    "tags": "Spark/宽窄依赖/Shuffle",
+    "stem": "判断一个 Spark 算子是宽依赖还是窄依赖，最本质的依据是？"
+  },
+  {
+    "id": "MCQ-002-V2",
+    "type": "MCQ",
+    "level": "L4",
+    "tags": "Spark/宽窄依赖/分区器",
+    "stem": "关于 Spark 的 join 算子，以下说法正确的是？"
+  },
+  {
+    "id": "MCQ-003",
+    "type": "MCQ",
+    "level": "L2",
+    "tags": "Spark/内存管理/Execution",
+    "stem": "Spark 统一内存管理中，用于 Shuffle、Join、排序等执行操作的内存区域是？"
+  },
+  {
+    "id": "MCQ-003-V1",
+    "type": "MCQ",
+    "level": "L2",
+    "tags": "Spark/内存管理/Storage",
+    "stem": "Spark 统一内存管理中，Storage Memory 主要用于存储什么？"
+  },
+  {
+    "id": "MCQ-003-V2",
+    "type": "MCQ",
+    "level": "L3",
+    "tags": "Spark/内存管理/动态占用",
+    "stem": "在 Spark 统一内存管理中，当 Execution Memory 不足时，以下哪种情况会发生？"
+  },
+  {
+    "id": "MCQ-004",
+    "type": "MCQ",
+    "level": "L1",
+    "tags": "Hive/内外部表/区别",
+    "stem": "关于 Hive 内部表和外部表，以下说法正确的是？"
+  },
+  {
+    "id": "MCQ-004-V1",
+    "type": "MCQ",
+    "level": "L2",
+    "tags": "Hive/内外部表/转换",
+    "stem": "将 Hive 内部表转换为外部表的语句是？"
+  },
+  {
+    "id": "MCQ-004-V2",
+    "type": "MCQ",
+    "level": "L1",
+    "tags": "Hive/内外部表/选型",
+    "stem": "生产环境数仓建表时，通常优先选择外部表，最主要的原因是？"
+  },
+  {
+    "id": "MCQ-005",
+    "type": "MCQ",
+    "level": "L2",
+    "tags": "Hive/列式存储/ORC-Parquet",
+    "stem": "以下关于 Hive 列式存储格式 ORC 和 Parquet 的说法，错误的是？"
+  },
+  {
+    "id": "MCQ-005-V1",
+    "type": "MCQ",
+    "level": "L3",
+    "tags": "Hive/列式存储/stripe",
+    "stem": "关于 ORC 文件结构中的 stripe，以下说法正确的是？"
+  },
+  {
+    "id": "MCQ-005-V2",
+    "type": "MCQ",
+    "level": "L2",
+    "tags": "Hive/列式存储/选型",
+    "stem": "某数仓同时被 Hive、Spark、Impala 三种引擎查询，优先选择哪种存储格式？"
+  },
+  {
+    "id": "MCQ-006",
+    "type": "MCQ",
+    "level": "L2",
+    "tags": "Hive/排序/order-by",
+    "stem": "以下 Hive 排序语句中，哪个会触发全局排序且只使用一个 Reduce？"
+  },
+  {
+    "id": "MCQ-006-V1",
+    "type": "MCQ",
+    "level": "L2",
+    "tags": "Hive/排序/cluster-by",
+    "stem": "Hive 中 cluster by 等价于以下哪种组合？"
+  },
+  {
+    "id": "MCQ-006-V2",
+    "type": "MCQ",
+    "level": "L4",
+    "tags": "Hive/排序/海量全局有序",
+    "stem": "京东有 40-50T 数据需要全局有序输出，直接使用 order by 会 OOM，以下哪种方案不可行？"
+  },
+  {
+    "id": "MCQ-007",
+    "type": "MCQ",
+    "level": "L2",
+    "tags": "Flink/Checkpoint/Barrier",
+    "stem": "Flink Checkpoint 机制中，JobManager 的 CheckpointCoordinator 向 Source 节点注入什么来触发状态快照？"
+  },
+  {
+    "id": "MCQ-007-V1",
+    "type": "MCQ",
+    "level": "L4",
+    "tags": "Flink/Checkpoint/Unaligned",
+    "stem": "Flink Unaligned Checkpoint 主要解决了什么问题？"
+  },
+  {
+    "id": "MCQ-007-V2",
+    "type": "MCQ",
+    "level": "L2",
+    "tags": "Flink/Watermark/事件时间",
+    "stem": "Flink 中 Watermark 的核心作用是？"
+  },
+  {
+    "id": "MCQ-008",
+    "type": "MCQ",
+    "level": "L2",
+    "tags": "HBase/写流程/WAL",
+    "stem": "HBase 写数据的正确流程顺序是？"
+  },
+  {
+    "id": "MCQ-008-V1",
+    "type": "MCQ",
+    "level": "L3",
+    "tags": "HBase/读流程/BlockCache",
+    "stem": "HBase 读数据的查询顺序是？"
+  },
+  {
+    "id": "MCQ-008-V2",
+    "type": "MCQ",
+    "level": "L2",
+    "tags": "HBase/WAL/禁用风险",
+    "stem": "HBase 写入时如果禁用 WAL（durability=SKIP_WAL），可能导致的后果是？"
+  },
+  {
+    "id": "MCQ-009",
+    "type": "MCQ",
+    "level": "L2",
+    "tags": "Zookeeper/选举/zxid",
+    "stem": "Zookeeper Leader 选举时，节点优先根据以下哪个因素投票？"
+  },
+  {
+    "id": "MCQ-009-V1",
+    "type": "MCQ",
+    "level": "L2",
+    "tags": "Zookeeper/选举/myid",
+    "stem": "Zookeeper 集群选举 Leader 时，若多个候选节点的 zxid 相同，则接下来根据什么决定 Leader？"
+  },
+  {
+    "id": "MCQ-009-V2",
+    "type": "MCQ",
+    "level": "L3",
+    "tags": "Zookeeper/选举/脑裂",
+    "stem": "Zookeeper 集群出现网络分区（脑裂）时，如何防止两个 Leader 同时存在？"
+  },
+  {
+    "id": "MCQ-010",
+    "type": "MCQ",
+    "level": "L2",
+    "tags": "数仓/建模/星型雪花",
+    "stem": "关于星型模型和雪花模型，以下说法正确的是？"
+  },
+  {
+    "id": "MCQ-010-V1",
+    "type": "MCQ",
+    "level": "L2",
+    "tags": "数仓/建模/雪花适用",
+    "stem": "以下哪种场景更适合使用雪花模型而非星型模型？"
+  },
+  {
+    "id": "MCQ-010-V2",
+    "type": "MCQ",
+    "level": "L2",
+    "tags": "数仓/建模/事实表类型",
+    "stem": "以下哪种事实表记录业务过程的累积度量值（如账户余额）？"
+  },
+  {
+    "id": "SAQ-001",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Kafka/消息可靠性/三端保证",
+    "stem": "如何保证 Kafka 消息不丢失？"
+  },
+  {
+    "id": "SAQ-001-V1",
+    "type": "SAQ",
+    "level": "L4",
+    "tags": "Kafka/消息重复/幂等性事务",
+    "stem": "如何保证 Kafka 消息不重复（Exactly-Once 语义）？幂等性 Producer 能保证什么、不能保证什么？"
+  },
+  {
+    "id": "SAQ-002",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Kafka/ISR/Leader选举",
+    "stem": "Kafka 如何选举 Leader？ISR 机制是什么？"
+  },
+  {
+    "id": "SAQ-002-V1",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Kafka/ISR/unclean选举风险",
+    "stem": "当 ISR 为空时，开启 unclean.leader.election.enable=true 会有什么风险？应该如何权衡？"
+  },
+  {
+    "id": "SAQ-003",
+    "type": "SAQ",
+    "level": "L2",
+    "tags": "Kafka/Pull模式/消费者",
+    "stem": "Kafka 消费者是推模式还是拉模式？为什么采用该模式？"
+  },
+  {
+    "id": "SAQ-003-V1",
+    "type": "SAQ",
+    "level": "L2",
+    "tags": "Kafka/Pull模式/空轮询",
+    "stem": "Kafka Pull 模式有什么缺点？如何避免消费者一直拉到空消息（轮询空转）？"
+  },
+  {
+    "id": "SAQ-004",
+    "type": "SAQ",
+    "level": "L2",
+    "tags": "Kafka/消费者组/Rebalance",
+    "stem": "Kafka 消费者组是什么？同一个消费者组的消费者能否消费同一个分区？"
+  },
+  {
+    "id": "SAQ-004-V1",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Kafka/Rebalance/触发与优化",
+    "stem": "Kafka Rebalance 的触发条件有哪些？Rebalance 会导致什么问题？如何减少 Rebalance？"
+  },
+  {
+    "id": "SAQ-005",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Kafka/顺序性/分区",
+    "stem": "Kafka 如何保证消息顺序性？如何实现全局有序？"
+  },
+  {
+    "id": "SAQ-005-V1",
+    "type": "SAQ",
+    "level": "L4",
+    "tags": "Kafka/顺序性/权衡",
+    "stem": "业务既要全局有序又要高吞吐，应该如何架构？请给出方案并说明权衡点。"
+  },
+  {
+    "id": "SAQ-006",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Spark/容错/血缘",
+    "stem": "Spark 的容错机制是怎样的？RDD 如何实现容错？"
+  },
+  {
+    "id": "SAQ-006-V1",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Spark/容错/Checkpoint vs Cache",
+    "stem": "Spark 中 Checkpoint 和 Cache 的区别是什么？Lineage 过长会有什么问题？"
+  },
+  {
+    "id": "SAQ-007",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Hadoop/Shuffle/MR与Spark对比",
+    "stem": "MapReduce 的 Shuffle 过程是怎样的？MapReduce 与 Spark 的优劣对比？"
+  },
+  {
+    "id": "SAQ-007-V1",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Spark/Shuffle/Hash vs Sort",
+    "stem": "Spark Shuffle 有哪些实现？HashShuffle 和 SortShuffle 的区别与适用场景？"
+  },
+  {
+    "id": "SAQ-008",
+    "type": "SAQ",
+    "level": "L2",
+    "tags": "Hadoop/HDFS/读写与副本",
+    "stem": "HDFS 的读写流程是怎样的？副本机制是怎么样的？"
+  },
+  {
+    "id": "SAQ-008-V1",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Hadoop/HDFS/HA",
+    "stem": "NameNode 挂了怎么办？HDFS HA 如何实现？脑裂如何避免？"
+  },
+  {
+    "id": "SAQ-009",
+    "type": "SAQ",
+    "level": "L2",
+    "tags": "Hadoop/YARN/调度",
+    "stem": "YARN 的调度流程是怎样的？有哪些调度器？"
+  },
+  {
+    "id": "SAQ-009-V1",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Hadoop/YARN/调度器选型",
+    "stem": "Capacity 调度器和 Fair 调度器有什么区别？生产环境如何选择？"
+  },
+  {
+    "id": "SAQ-010",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Hive/数据倾斜/通用方案",
+    "stem": "Hive 的数据倾斜如何处理？"
+  },
+  {
+    "id": "SAQ-010-V1",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Hive/数据倾斜/group-by与join",
+    "stem": "group by 倾斜和 join 倾斜分别怎么解决？两阶段聚合的原理是什么？"
+  },
+  {
+    "id": "SAQ-011",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Flink/Exactly-Once/端到端",
+    "stem": "Flink 如何实现 Exactly-Once 语义？"
+  },
+  {
+    "id": "SAQ-011-V1",
+    "type": "SAQ",
+    "level": "L4",
+    "tags": "Flink/Exactly-Once/两阶段提交",
+    "stem": "Flink 端到端 Exactly-Once 中两阶段提交（2PC）的完整流程是怎样的？Sink 端如何选择幂等写入还是事务写入？"
+  },
+  {
+    "id": "SAQ-012",
+    "type": "SAQ",
+    "level": "L2",
+    "tags": "Flink/窗口/类型与函数",
+    "stem": "Flink 的窗口有哪些类型？窗口函数如何使用？"
+  },
+  {
+    "id": "SAQ-012-V1",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Flink/窗口/会话与触发",
+    "stem": "Flink 会话窗口的 gap 怎么设？Event Time 窗口是 Watermark 到了才触发吗？"
+  },
+  {
+    "id": "SAQ-013",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Flink/状态/State Backend",
+    "stem": "Flink 的状态管理是怎样的？状态有哪几种？"
+  },
+  {
+    "id": "SAQ-013-V1",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Flink/状态/RocksDB",
+    "stem": "RocksDBStateBackend 为什么适合大状态？状态 TTL 是什么？Broadcast State 是什么？"
+  },
+  {
+    "id": "SAQ-014",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "HBase/RowKey/设计与避免热点",
+    "stem": "HBase 的 RowKey 如何设计？为什么不能连续写入？"
+  },
+  {
+    "id": "SAQ-014-V1",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "HBase/RowKey/反向问题",
+    "stem": "HBase RowKey 设计不当会导致什么问题？如何排查与解决？"
+  },
+  {
+    "id": "SAQ-015",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "HBase/LSM/Compaction与分裂",
+    "stem": "HBase 的 LSM 树原理是什么？Region 分裂机制是怎样的？"
+  },
+  {
+    "id": "SAQ-015-V1",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "HBase/LSM/Compaction风暴",
+    "stem": "HBase Minor 和 Major Compaction 的区别？Compaction 风暴如何避免？Region 分裂期间能读写吗？"
+  },
+  {
+    "id": "SAQ-016",
+    "type": "SAQ",
+    "level": "L2",
+    "tags": "数仓/分层/各层职责",
+    "stem": "设计一个数仓分层方案，各层职责是什么？"
+  },
+  {
+    "id": "SAQ-016-V1",
+    "type": "SAQ",
+    "level": "L2",
+    "tags": "数仓/分层/DWD与DWS",
+    "stem": "DWD 和 DWS 的区别？为什么要做宽表？DIM 层放什么？"
+  },
+  {
+    "id": "SAQ-017",
+    "type": "SAQ",
+    "level": "L2",
+    "tags": "数仓/SCD/拉链表",
+    "stem": "缓慢变化维（SCD）如何处理？拉链表是什么？"
+  },
+  {
+    "id": "SAQ-017-V1",
+    "type": "SAQ",
+    "level": "L2",
+    "tags": "数仓/SCD/SCD2与SCD3适用场景",
+    "stem": "SCD2 和 SCD3 各适用什么场景？事实表类型（事务型/周期型/累积型）区别？"
+  },
+  {
+    "id": "SAQ-018",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "数据倾斜/定位与解决",
+    "stem": "数据倾斜如何定位？如何解决？"
+  },
+  {
+    "id": "SAQ-018-V1",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "数据倾斜/两阶段聚合原理",
+    "stem": "两阶段聚合为什么有效？倾斜 key 无法过滤怎么办？Kafka/Redis 的数据倾斜怎么解决？"
+  },
+  {
+    "id": "SAQ-019",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Spark vs Flink/选型",
+    "stem": "Spark 和 Flink 有什么区别？分别适用于什么场景？"
+  },
+  {
+    "id": "SAQ-019-V1",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Spark vs Flink/Lambda与Kappa",
+    "stem": "Lambda 架构和 Kappa 架构的区别？如何选型？Spark Structured Streaming 和 Flink 还有差距吗？"
+  },
+  {
+    "id": "SAQ-020",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Spark/Shuffle/实现与优化",
+    "stem": "Spark 的 Shuffle 有哪几种实现？如何优化 Shuffle？"
+  },
+  {
+    "id": "SAQ-020-V1",
+    "type": "SAQ",
+    "level": "L2",
+    "tags": "Spark/Shuffle/reduceByKey vs groupByKey",
+    "stem": "reduceByKey 和 groupByKey 的区别？为什么 reduceByKey 更好？Bypass 机制触发条件？"
+  },
+  {
+    "id": "SAQ-021",
+    "type": "SAQ",
+    "level": "L2",
+    "tags": "Hive/SQL优化/通用手段",
+    "stem": "Hive SQL 优化有哪些手段？"
+  },
+  {
+    "id": "SAQ-021-V1",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Hive/SQL优化/小文件与引擎",
+    "stem": "Hive 小文件问题怎么解决？什么时候用 Tez/Spark 引擎？"
+  },
+  {
+    "id": "SAQ-022",
+    "type": "SAQ",
+    "level": "L2",
+    "tags": "Kafka/消息积压/处理",
+    "stem": "Kafka 消息积压如何处理？"
+  },
+  {
+    "id": "SAQ-022-V1",
+    "type": "SAQ",
+    "level": "L2",
+    "tags": "Kafka/消息积压/消费者与分区",
+    "stem": "Kafka 消费者数能超过分区数吗？为什么？如何监控 Consumer Lag？"
+  },
+  {
+    "id": "SAQ-023",
+    "type": "SAQ",
+    "level": "L1",
+    "tags": "HBase/对比/HBase vs MySQL",
+    "stem": "HBase 和关系型数据库（MySQL）有什么区别？什么场景使用 HBase？"
+  },
+  {
+    "id": "SAQ-023-V1",
+    "type": "SAQ",
+    "level": "L2",
+    "tags": "HBase/对比/HBase vs Redis",
+    "stem": "HBase 和 Redis 的区别？分别适用什么场景？"
+  },
+  {
+    "id": "SAQ-024",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Flink/反压/排查与解决",
+    "stem": "Flink 的反压（Backpressure）是什么？如何解决？"
+  },
+  {
+    "id": "SAQ-024-V1",
+    "type": "SAQ",
+    "level": "L4",
+    "tags": "Flink/反压/Unaligned Checkpoint",
+    "stem": "Unaligned Checkpoint 的原理是什么？为什么能解决反压场景下的 Checkpoint 超时？"
+  },
+  {
+    "id": "SAQ-025",
+    "type": "SAQ",
+    "level": "L2",
+    "tags": "Zookeeper/watcher/机制",
+    "stem": "Zookeeper 的 watcher 机制是什么？有哪些应用场景？"
+  },
+  {
+    "id": "SAQ-025-V1",
+    "type": "SAQ",
+    "level": "L3",
+    "tags": "Zookeeper/watcher/一次性与分布式锁",
+    "stem": "一次性 watcher 有什么问题？如何避免事件丢失？Zookeeper 分布式锁如何实现？羊群效应是什么？"
+  },
+  {
+    "id": "CODE-001",
+    "type": "CODE",
+    "level": "L3",
+    "tags": "场景题/SQL/窗口函数/连续登录",
+    "stem": "给定用户登录日志表 user_login(uid BIGINT, dt STRING)，每行记录一个用户一天的登录行为（同一用户同一天可能有多条）。请编写 SQL 统计连续登录 N 天的用户列表。"
+  },
+  {
+    "id": "CODE-001-V1",
+    "type": "CODE",
+    "level": "L4",
+    "tags": "场景题/Flink/实时连续登录",
+    "stem": "用 Flink DataStream API 实时计算\"连续登录 N 天\"的用户列表。输入为 Kafka 中的用户登录事件流（uid, eventTime），要求每天输出一次截至当日连续登录 N 天的用户。"
+  },
+  {
+    "id": "CODE-002",
+    "type": "CODE",
+    "level": "L3",
+    "tags": "场景题/算法/TopK/小顶堆",
+    "stem": "100 亿个整数中找出最大的 100 个，要求给出可在单机/分布式环境下的实现方案，并编写核心代码（任选 Spark/Java/Python）。"
+  },
+  {
+    "id": "CODE-002-V1",
+    "type": "CODE",
+    "level": "L4",
+    "tags": "场景题/算法/流式TopK",
+    "stem": "实时流场景下，100 亿数据持续到达，要求 Top100 实时更新（流式 TopK）。请给出方案并编写核心代码（Flink/Spark Streaming/Java 任选）。"
+  },
+  {
+    "id": "CODE-003",
+    "type": "CODE",
+    "level": "L3",
+    "tags": "场景题/算法/UV去重/HyperLogLog",
+    "stem": "如何统计网站 UV（独立访客）？亿级用户去重如何实现？请给出多种方案并编写核心代码（SQL/Spark/Redis 任选）。"
+  },
+  {
+    "id": "CODE-003-V1",
+    "type": "CODE",
+    "level": "L4",
+    "tags": "场景题/算法/HyperLogLog原理",
+    "stem": "请用 Java 实现一个简易的 HyperLogLog 算法（不依赖 Redis），并对 1 亿个随机 uid 估算基数，与精确去重结果对比误差。要求：精度可配置（p=14，对应 16384 个桶）。"
+  },
+  {
+    "id": "CODE-004",
+    "type": "CODE",
+    "level": "L3",
+    "tags": "场景题/算法/外部排序",
+    "stem": "8G 的 int 数据，内存只有 2G，如何排序？请描述算法思路并编写核心代码（外部排序）。"
+  },
+  {
+    "id": "CODE-004-V1",
+    "type": "CODE",
+    "level": "L3",
+    "tags": "场景题/算法/外部排序进阶",
+    "stem": "8G 的 int 数据（含重复值），内存 2G。要求：(1) 排序后输出全局有序文件；(2) 用位图法实现去重排序版本（值域 0~2^32-1）。请编写两套核心代码。"
+  },
+  {
+    "id": "CODE-005",
+    "type": "CODE",
+    "level": "L3",
+    "tags": "场景题/算法/Top100分布式",
+    "stem": "一亿条数据中找出 Top 100，请给出单机和分布式两种实现方案，并编写核心代码（Spark/Java/Python 任选）。"
+  },
+  {
+    "id": "CODE-005-V1",
+    "type": "CODE",
+    "level": "L3",
+    "tags": "场景题/算法/TopK方案对比",
+    "stem": "对比\"小顶堆法\"和\"分治法\"求 Top100 的适用场景。在 1 亿数据（单机 8G 内存）和 100 亿数据（集群 10 节点）两种情况下，分别选择哪种方案？请编写两套代码。"
+  },
+  {
+    "id": "CODE-006",
+    "type": "CODE",
+    "level": "L3",
+    "tags": "Kafka/生产者/顺序性",
+    "stem": "用 Java 实现一个 Kafka 生产者，保证\"相同 key 的消息顺序写入同一分区\"。要求：(1) 自定义 Partitioner 把相同 key 路由到同一分区；(2) 设置 acks=all、retries>0、max.in.fli"
+  },
+  {
+    "id": "CODE-007",
+    "type": "CODE",
+    "level": "L2",
+    "tags": "Spark Core/WordCount+Checkpoint",
+    "stem": "用 Spark Core（Java 或 Scala）实现 WordCount，并演示 Checkpoint 截断血缘。要求：(1) 读取 HDFS 上的文本文件；(2) flatMap + reduceByKey 统计词频；(3) 设置 c"
+  },
+  {
+    "id": "CODE-008",
+    "type": "CODE",
+    "level": "L3",
+    "tags": "Spark SQL/两阶段聚合/Salting",
+    "stem": "用 Spark SQL 实现两阶段聚合（salting 方案）解决 group by 数据倾斜。场景：订单表 orders(order_id, user_id, amount)，user_id 分布倾斜（某 user_id 占 80% 数据"
+  },
+  {
+    "id": "CODE-009",
+    "type": "CODE",
+    "level": "L2",
+    "tags": "Spark/reduceByKey vs groupByKey",
+    "stem": "用 Spark Core 编写代码对比 reduceByKey 和 groupByKey 的性能差异。场景：1 亿条 (word, 1) 数据，分别用 reduceByKey(_+_) 和 groupByKey().mapValues(_."
+  },
+  {
+    "id": "CODE-010",
+    "type": "CODE",
+    "level": "L4",
+    "tags": "Flink/Kafka到MySQL/Exactly-Once",
+    "stem": "用 Flink DataStream API 实现 Kafka → MySQL 的端到端 Exactly-Once 语义（两阶段提交）。要求：(1) Source 为 Kafka，开启 checkpoint；(2) Sink 自定义 Two"
+  },
+  {
+    "id": "CODE-011",
+    "type": "CODE",
+    "level": "L3",
+    "tags": "Flink/滚动窗口UV/HyperLogLog",
+    "stem": "用 Flink DataStream API 实现每 5 分钟滚动窗口 UV 统计（亿级用户去重）。要求：(1) Source 为 Kafka 用户访问流；(2) 使用 EventTime + Watermark；(3) 使用滚动窗口 5 "
+  },
+  {
+    "id": "CODE-012",
+    "type": "CODE",
+    "level": "L3",
+    "tags": "Hive SQL/拉链表/初始化与更新",
+    "stem": "用 Hive SQL 实现用户维度拉链表的初始化与每日更新。要求：(1) 设计拉链表 user_dim(uid, name, level, start_date, end_date)；(2) 初始化全量数据（end_date='9999-1"
+  },
+  {
+    "id": "CODE-013",
+    "type": "CODE",
+    "level": "L3",
+    "tags": "HBase/RowKey+Put/Get",
+    "stem": "设计 HBase 用户行为表 `user_behavior` 的 RowKey 并编写 Java 代码。要求：(1) RowKey 设计：`[uid 反转] + [时间戳倒序]`，避免热点且支持按 uid 范围查询；(2) 列族 `cf`，"
+  },
+  {
+    "id": "CODE-014",
+    "type": "CODE",
+    "level": "L4",
+    "tags": "数仓/Hive SQL/ODS到ADS ETL",
+    "stem": "用 Hive SQL 实现完整的用户购买宽表 ETL 链路：ODS → DWD → DWS → ADS。要求：(1) ODS 层：ods_order(order_id, uid, goods_id, amount, create_time)"
+  },
+  {
+    "id": "CODE-015",
+    "type": "CODE",
+    "level": "L3",
+    "tags": "Zookeeper/Curator/分布式锁",
+    "stem": "用 Java + Apache Curator Framework 实现基于 Zookeeper 的可重入分布式锁。要求：(1) 使用 InterProcessMutex；(2) 模拟 5 个线程抢锁，每个线程获取锁后 sleep 1s 再"
+  },
+  {
+    "id": "MCQ-011",
+    "type": "MCQ",
+    "level": "L1",
+    "tags": "Kafka/基础概念/Topic+Partition",
+    "stem": "关于 Kafka 中 Topic 和 Partition 的关系，以下说法正确的是？"
+  },
+  {
+    "id": "MCQ-012",
+    "type": "MCQ",
+    "level": "L1",
+    "tags": "Hadoop/HDFS/块大小",
+    "stem": "HDFS 2.x 的默认 Block 大小是？"
+  },
+  {
+    "id": "MCQ-013",
+    "type": "MCQ",
+    "level": "L1",
+    "tags": "Spark/RDD/概念",
+    "stem": "Spark 中 RDD 的全称是？"
+  },
+  {
+    "id": "MCQ-014",
+    "type": "MCQ",
+    "level": "L1",
+    "tags": "Flink/基础/流批一体",
+    "stem": "关于 Flink 的\"流批一体\"，以下说法正确的是？"
+  },
+  {
+    "id": "MCQ-015",
+    "type": "MCQ",
+    "level": "L1",
+    "tags": "Zookeeper/基础/节点类型",
+    "stem": "以下不属于 Zookeeper 节点（ZNode）类型的是？"
+  },
+  {
+    "id": "MCQ-016",
+    "type": "MCQ",
+    "level": "L1",
+    "tags": "数仓/分层/ODS",
+    "stem": "数据仓库中 ODS 层的主要作用是？"
+  },
+  {
+    "id": "SAQ-026",
+    "type": "SAQ",
+    "level": "L1",
+    "tags": "Kafka/基础/概念",
+    "stem": "什么是 Kafka？它的核心组件有哪些？"
+  },
+  {
+    "id": "SAQ-027",
+    "type": "SAQ",
+    "level": "L1",
+    "tags": "Spark/基础/RDD",
+    "stem": "什么是 RDD？它有哪些核心特性？"
+  },
+  {
+    "id": "SAQ-028",
+    "type": "SAQ",
+    "level": "L1",
+    "tags": "Hadoop/HDFS/概念",
+    "stem": "什么是 HDFS？它的核心组件是什么？"
+  },
+  {
+    "id": "SAQ-029",
+    "type": "SAQ",
+    "level": "L1",
+    "tags": "数仓/分层/概念",
+    "stem": "数据仓库为什么要分层？常见的分层有哪些？"
+  },
+  {
+    "id": "CODE-016",
+    "type": "CODE",
+    "level": "L1",
+    "tags": "Spark Core/基础/WordCount",
+    "stem": "使用 Spark Core（Scala 或 Java）编写经典的 WordCount 程序：读取 HDFS 上的文本文件，统计每个单词出现次数，结果写回 HDFS。"
+  },
+  {
+    "id": "CODE-017",
+    "type": "CODE",
+    "level": "L1",
+    "tags": "Hive SQL/基础/建表",
+    "stem": "编写 Hive SQL 建表语句：创建一张用户行为日志表 `dwd_user_log_di`，字段含 `user_id BIGINT`、`event_type STRING`、`event_time TIMESTAMP`，按日期分区，使用 "
+  }
+]
