@@ -158,6 +158,19 @@ bigdata-interview-bank/
 ├── README.md                              # 本文件
 ├── overview.md                            # 项目概览
 ├── 牛客网各开发岗位面经汇总报告.md          # 数据源
+├── agents/                                # 5个Agent完整定义（可复用）
+│   ├── team-lead.md
+│   ├── collector.md
+│   ├── cleaner.md
+│   ├── generator.md
+│   ├── saq-grader.md
+│   └── code-grader.md
+├── docs/                                  # 面试准备材料
+│   ├── interview_narrative.md             # 面试讲述脚本（STAR法则3/5/10分钟版）
+│   ├── resume_project.md                  # 简历项目描述（中英双语）
+│   ├── interview_qa_bank.md              # 面试问答预案（24题标准回答）
+│   ├── demo_guide.md                      # 现场演示脚本
+│   └── architecture_decisions.md          # 架构决策记录（ADR×7）
 └── interview_bank/
     ├── phase1_raw_interviews.md           # Phase 1: 原始面经采集（36KB）
     ├── phase2_standardized_questions.md   # Phase 2: 40道标准化题目（28KB）
