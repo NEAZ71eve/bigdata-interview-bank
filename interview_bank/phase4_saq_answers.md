@@ -2556,3 +2556,107 @@ try {
 - HBase：LSM 树、Compaction、RowKey 设计、Region 分裂
 - Hive：数据倾斜两阶段聚合、小文件合并、SCD 拉链表
 - Zookeeper：Watcher 一次性、临时顺序节点分布式锁、羊群效应
+
+---
+
+## SAQ-026 [L1] [Kafka/基础/概念]
+**题干**：什么是 Kafka？它的核心组件有哪些？
+
+### 标准答案
+
+**1. Kafka 定义**
+Kafka 是一个**分布式流处理平台**（Distributed Streaming Platform），最初由 LinkedIn 开发，后捐献给 Apache。它本质上是一个**高吞吐、可持久化、可水平扩展的分布式消息队列**，同时提供流处理能力。
+
+**2. 核心组件**
+
+| 组件 | 说明 |
+|------|------|
+| **Broker** | Kafka 服务节点，多个 Broker 组成集群，无中心节点设计 |
+| **Topic** | 消息的主题/分类，逻辑概念，生产者向 Topic 发消息，消费者从 Topic 读消息 |
+| **Partition** | Topic 的物理分片，是并行度的基本单位；每个 Partition 是一个有序、不可变的消息追加日志 |
+| **Producer** | 消息生产者，将数据发布到 Topic 的指定 Partition |
+| **Consumer** | 消息消费者，从 Broker 拉取（Pull）消息 |
+| **Consumer Group** | 消费者组，组内消费者共同消费一个 Topic 的所有 Partition，每个 Partition 只被组内一个消费者消费 |
+| **ZooKeeper / KRaft** | 集群协调服务（2.8+ 支持 KRaft 去 ZK 模式），负责 Broker 注册、Leader 选举、元数据存储 |
+| **Offset** | 消费者在 Partition 中的消费位置，由消费者自己维护（新版本存储在 `__consumer_offsets` topic） |
+
+**3. 追问简答**
+- **Kafka 为什么快？** → 顺序写磁盘 + 零拷贝（sendfile）+ 批量压缩 + 页缓存
+- **Partition 数量怎么定？** → 通常按吞吐需求，1 个 Partition 支持约 10MB/s，Consumer 数 ≤ Partition 数
+
+---
+
+## SAQ-027 [L1] [Spark/基础/RDD]
+**题干**：什么是 RDD？它有哪些核心特性？
+
+### 标准答案
+
+**1. RDD 定义**
+RDD（Resilient Distributed Dataset，**弹性分布式数据集**）是 Spark 最底层的抽象，代表一个**不可变、分区、可并行计算**的数据集合。"弹性"指容错能力——分区丢失可基于血缘（lineage）重新计算。
+
+**2. 五大核心特性**
+
+| 特性 | 说明 |
+|------|------|
+| ① 包含一系列分区 | RDD 由多个 Partition 组成，每个 Partition 可被独立计算，是并行度的基本单位 |
+| ② 每个分区有计算函数 | 每个分区的数据由一个计算函数（如 map/filter）处理 |
+| ③ 拥有依赖关系 | RDD 记录父 RDD（血缘 lineage），分区丢失时可重算恢复，无需复制 |
+| ④ 可选：分区器 | 键值对 RDD 可有 Partitioner（HashPartitioner / RangePartitioner），决定数据分布 |
+| ⑤ 可选：首选位置列表 | 记录每个分区的最佳计算位置（如 HDFS Block 所在节点），实现数据本地化 |
+
+**3. 追问简答**
+- **RDD vs DataFrame？** → DataFrame 有 Schema（结构化），底层走 Catalyst 优化器 + Tungsten（堆外内存 + 代码生成），性能优于 RDD
+- **什么是宽窄依赖？** → 窄依赖：父分区一对一映射子分区（map）；宽依赖：父分区多对多（groupByKey），触发 Shuffle
+
+---
+
+## SAQ-028 [L1] [Hadoop/HDFS/概念]
+**题干**：什么是 HDFS？它的核心组件是什么？
+
+### 标准答案
+
+**1. HDFS 定义**
+HDFS（Hadoop Distributed File System，**Hadoop 分布式文件系统**）是 Hadoop 生态的存储基石，设计用于在**廉价商用服务器集群**上存储**海量数据**（TB/PB 级），提供**高吞吐、高容错**的顺序读写能力。不适合低延迟随机访问和小文件存储。
+
+**2. 核心组件**
+
+| 组件 | 职责 | 关键点 |
+|------|------|--------|
+| **NameNode (NN)** | 管理文件系统的**元数据**（目录树、文件→Block 映射、Block→DataNode 映射） | 内存中维护，持久化到 fsimage + edits 日志；单点问题靠 HA（Standby NN）解决 |
+| **DataNode (DN)** | 存储**实际数据块**（Block），默认 128MB/块，3 副本 | 定期向 NN 发送心跳 + Block 报告；负责读写请求 |
+| **Secondary NameNode (SNN)** | **不是** NN 的热备！定期合并 fsimage + edits → 新 fsimage，减少 NN 重启时间 | HA 模式下由 Standby NN 承担此职责 |
+
+**3. 追问简答**
+- **为什么 HDFS 不适合小文件？** → 每个 Block 在 NN 占约 150 字节元数据，10 亿个小文件 = 150GB 元数据，撑爆 NN 内存
+- **副本放在哪？** → 机架感知策略：1 本机架 + 1 不同机架 + 1 同机架另一节点（平衡可用性与带宽）
+
+---
+
+## SAQ-029 [L1] [数仓/分层/概念]
+**题干**：数据仓库为什么要分层？常见的分层有哪些？
+
+### 标准答案
+
+**1. 为什么要分层**
+
+| 原因 | 说明 |
+|------|------|
+| **空间换时间** | 中间层（DWS）预计算汇总，查询时直接复用，避免每次从明细层重算 |
+| **解耦** | 业务库变更不影响下游报表，下游只依赖数仓分层，屏蔽源端变化 |
+| **血缘清晰** | 分层后数据流向明确（ODS→DWD→DWS→ADS），便于排查与溯源 |
+| **复用性** | DWD/DWS 统一口径，多个 ADS 报表共用同一汇总层，避免口径不一致 |
+| **管理规范** | 每层职责明确，便于权限管控、数据治理、生命周期管理 |
+
+**2. 常见分层架构（五层）**
+
+| 层级 | 全称 | 职责 | 数据特点 |
+|------|------|------|---------|
+| **ODS** | Operational Data Store | 贴源层，存原始数据，与业务库一致 | 不加工，按日分区 |
+| **DWD** | Data Warehouse Detail | 明细层，清洗+标准化后的事实数据 | 干净、粒度细、可关联维度 |
+| **DWS** | Data Warehouse Summary | 汇总层，按主题+时间聚合 | 宽表，预计算 UV/GMV 等 |
+| **DIM** | Dimension | 维度层，存维度表（用户/商品/地域） | 拉链表 SCD2、全量快照 |
+| **ADS** | Application Data Service | 报表层，面向应用的最终指标 | 直接对接 BI 报表/API |
+
+**3. 追问简答**
+- **DWD 和 ODS 的区别？** → ODS 是原始数据（可能有脏值），DWD 是清洗后标准化的事实数据（字段规范、脱敏、维度外键已关联）
+- **DWS 一定要做吗？** → 小体量可以 DWD 直接到 ADS；但数据量大时 DWS 汇总层能极大降低 ADS 查询的计算量，是性能优化的关键
